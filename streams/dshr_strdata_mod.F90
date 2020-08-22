@@ -31,8 +31,9 @@ module dshr_strdata_mod
   use pio              , only : pio_inquire, pio_inq_varid, pio_inq_varndims, pio_inq_vardimid
   use pio              , only : pio_inq_dimlen, pio_inq_vartype, pio_inq_dimname, pio_inq_dimid
   use pio              , only : pio_double, pio_real, pio_int, pio_offset_kind, pio_get_var
-  use pio              , only : pio_read_darray, pio_setframe, pio_fill_double, pio_get_att
-  use pio              , only : PIO_BCAST_ERROR, PIO_RETURN_ERROR, PIO_NOERR, PIO_INTERNAL_ERROR, PIO_SHORT
+  use pio              , only : pio_read_darray, pio_setframe, pio_get_att
+  use pio              , only : PIO_BCAST_ERROR, PIO_RETURN_ERROR, PIO_NOERR, PIO_INTERNAL_ERROR
+ !use pio              , only : PIO_SHORT
 
   implicit none
   private
@@ -1398,8 +1399,8 @@ contains
              allocate(data_real2d(lsize, stream_nlev))
           else if (pio_iovartype == PIO_DOUBLE .and. .not. allocated(data_dbl2d)) then
              allocate(data_dbl2d(lsize, stream_nlev))
-          else if(pio_iovartype == PIO_SHORT .and. .not. allocated(data_short2d)) then
-             allocate(data_short2d(lsize, stream_nlev))
+          ! else if(pio_iovartype == PIO_SHORT .and. .not. allocated(data_short2d)) then
+          !    allocate(data_short2d(lsize, stream_nlev))
           endif
        else
           lsize = size(dataptr1d)
@@ -1407,8 +1408,8 @@ contains
              allocate(data_real1d(lsize))
           else if (pio_iovartype == PIO_DOUBLE .and. .not. allocated(data_dbl1d)) then
              allocate(data_dbl1d(lsize))
-          else if(pio_iovartype == PIO_SHORT .and. .not. allocated(data_short1d)) then
-             allocate(data_short1d(lsize))
+          ! else if(pio_iovartype == PIO_SHORT .and. .not. allocated(data_short1d)) then
+          !    allocate(data_short1d(lsize))
           endif
        end if
 
@@ -1419,16 +1420,16 @@ contains
           rcode = pio_get_att(pioid, varid, "_FillValue", fillvalue_r4)
        else if (pio_iovartype == PIO_DOUBLE) then
           rcode = pio_get_att(pioid, varid, "_FillValue", fillvalue_r8)
-       else if (pio_iovartype == PIO_SHORT) then
-          rcode = pio_get_att(pioid, varid, "scale_factor", scale_factor)
-          if(rcode /= PIO_NOERR) then
-             call shr_sys_abort('DATATYPE PIO_SHORT requires attributes scale_factor')
-          endif
-          rcode = pio_get_att(pioid, varid, "add_offset", add_offset)
-          if(rcode /= PIO_NOERR) then
-             call shr_sys_abort('DATATYPE PIO_SHORT requires attributes add_offset')
-          endif
-          rcode = pio_get_att(pioid, varid, "_FillValue", fillvalue_i2)
+       ! else if (pio_iovartype == PIO_SHORT) then
+       !    rcode = pio_get_att(pioid, varid, "scale_factor", scale_factor)
+       !    if(rcode /= PIO_NOERR) then
+       !       call shr_sys_abort('DATATYPE PIO_SHORT requires attributes scale_factor')
+       !    endif
+       !    rcode = pio_get_att(pioid, varid, "add_offset", add_offset)
+       !    if(rcode /= PIO_NOERR) then
+       !       call shr_sys_abort('DATATYPE PIO_SHORT requires attributes add_offset')
+       !    endif
+       !    rcode = pio_get_att(pioid, varid, "_FillValue", fillvalue_i2)
        endif
        if(rcode == PIO_NOERR) handlefill=.true.
        call PIO_seterrorhandling(pioid, old_error_handle)
@@ -1548,59 +1549,59 @@ contains
              endif
           end if
 
-       elseif (pio_iovartype == PIO_SHORT) then
-          ! -----------------------------
-          ! pio_iovartype is PIO_SHORT
-          ! -----------------------------
-          if (stream_nlev > 1) then
-             if (per_stream%stream_pio_iodesc_set) then
-                call pio_read_darray(pioid, varid, per_stream%stream_pio_iodesc, data_short2d, rcode)
-             else
-                rcode = pio_get_var(pioid, varid,start=(/1,1,1,nt/), count=(/1,1,1,1/), ival=data_short2d)
-             end if
-             if ( rcode /= PIO_NOERR ) then
-                call shr_sys_abort(' ERROR: reading in 2d short variable: '// trim(per_stream%fldlist_stream(nf)))
-             end if
-             if (handlefill) then
-                do lev = 1,stream_nlev
-                   do n = 1,lsize
-                      if(data_short2d(n,lev) .eq. fillvalue_i2) then
-                         dataptr2d(lev,n) = r8fill
-                      else
-                         dataptr2d(lev,n) = real(data_short2d(lev,n),r8) * scale_factor + add_offset
-                      endif
-                   enddo
-                end do
-             else
-                do lev = 1,stream_nlev
-                   do n = 1,lsize
-                      dataptr2d(lev,n) = real(data_short2d(n,lev),r8) * scale_factor + add_offset
-                   enddo
-                end do
-             end if
-          else ! stream_nlev == 1
-             if (per_stream%stream_pio_iodesc_set) then
-                call pio_read_darray(pioid, varid, per_stream%stream_pio_iodesc, data_short1d, rcode)
-             else
-                rcode = pio_get_var(pioid, varid,start=(/1,1,nt/),count=(/1,1,1/), ival=data_short1d)
-             endif
-             if ( rcode /= PIO_NOERR ) then
-                call shr_sys_abort(' ERROR: reading in variable: '// trim(per_stream%fldlist_stream(nf)))
-             end if
-             if (handlefill) then
-                do n=1,lsize
-                   if(data_short1d(n).eq.fillvalue_i2) then
-                      dataptr1d(n) = r8fill
-                   else
-                      dataptr1d(n) = real(data_short1d(n),r8) * scale_factor + add_offset
-                   endif
-                enddo
-             else
-                do n=1,lsize
-                   dataptr1d(n) = real(data_short1d(n),r8) * scale_factor + add_offset
-                enddo
-             endif
-          end if
+       ! elseif (pio_iovartype == PIO_SHORT) then
+       !    ! -----------------------------
+       !    ! pio_iovartype is PIO_SHORT
+       !    ! -----------------------------
+       !    if (stream_nlev > 1) then
+       !       if (per_stream%stream_pio_iodesc_set) then
+       !          call pio_read_darray(pioid, varid, per_stream%stream_pio_iodesc, data_short2d, rcode)
+       !       else
+       !          rcode = pio_get_var(pioid, varid,start=(/1,1,1,nt/), count=(/1,1,1,1/), ival=data_short2d)
+       !       end if
+       !       if ( rcode /= PIO_NOERR ) then
+       !          call shr_sys_abort(' ERROR: reading in 2d short variable: '// trim(per_stream%fldlist_stream(nf)))
+       !       end if
+       !       if (handlefill) then
+       !          do lev = 1,stream_nlev
+       !             do n = 1,lsize
+       !                if(data_short2d(n,lev) .eq. fillvalue_i2) then
+       !                   dataptr2d(lev,n) = r8fill
+       !                else
+       !                   dataptr2d(lev,n) = real(data_short2d(lev,n),r8) * scale_factor + add_offset
+       !                endif
+       !             enddo
+       !          end do
+       !       else
+       !          do lev = 1,stream_nlev
+       !             do n = 1,lsize
+       !                dataptr2d(lev,n) = real(data_short2d(n,lev),r8) * scale_factor + add_offset
+       !             enddo
+       !          end do
+       !       end if
+       !    else ! stream_nlev == 1
+       !       if (per_stream%stream_pio_iodesc_set) then
+       !          call pio_read_darray(pioid, varid, per_stream%stream_pio_iodesc, data_short1d, rcode)
+       !       else
+       !          rcode = pio_get_var(pioid, varid,start=(/1,1,nt/),count=(/1,1,1/), ival=data_short1d)
+       !       endif
+       !       if ( rcode /= PIO_NOERR ) then
+       !          call shr_sys_abort(' ERROR: reading in variable: '// trim(per_stream%fldlist_stream(nf)))
+       !       end if
+       !       if (handlefill) then
+       !          do n=1,lsize
+       !             if(data_short1d(n).eq.fillvalue_i2) then
+       !                dataptr1d(n) = r8fill
+       !             else
+       !                dataptr1d(n) = real(data_short1d(n),r8) * scale_factor + add_offset
+       !             endif
+       !          enddo
+       !       else
+       !          do n=1,lsize
+       !             dataptr1d(n) = real(data_short1d(n),r8) * scale_factor + add_offset
+       !          enddo
+       !       endif
+       !    end if
 
        else
           ! -----------------------------
@@ -1690,9 +1691,9 @@ contains
     else if (pio_iovartype == PIO_DOUBLE) then
        if (allocated(data_dbl1d)) deallocate(data_dbl1d)
        if (allocated(data_dbl2d)) deallocate(data_dbl2d)
-    else if (pio_iovartype == PIO_SHORT) then
-       if (allocated(data_short1d)) deallocate(data_short1d)
-       if (allocated(data_short2d)) deallocate(data_short2d)
+    ! else if (pio_iovartype == PIO_SHORT) then
+    !    if (allocated(data_short1d)) deallocate(data_short1d)
+    !    if (allocated(data_short2d)) deallocate(data_short2d)
     endif
     if (.not. per_stream%stream_pio_iodesc_set) then
        deallocate(dataptr1d)

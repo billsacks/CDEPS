@@ -970,15 +970,19 @@ contains
     call shr_string_leftalign_and_convert_tabs(units)
 
     ! get strm%calendar
-    calendar = ' '
-    call pio_seterrorhandling(strm%file(k)%fileid, PIO_BCAST_ERROR, old_handle)
-    rCode = pio_inq_att(strm%file(k)%fileid, vid, 'calendar')
-    call pio_seterrorhandling(strm%file(k)%fileid, old_handle)
-    if (rCode == pio_noerr) then
-       rCode = pio_get_att(strm%file(k)%fileid, vid, 'calendar', calendar)
-    else
-       calendar = trim(shr_cal_noleap)
-    endif
+    ! calendar = ' '
+    ! call pio_seterrorhandling(strm%file(k)%fileid, PIO_BCAST_ERROR, old_handle)
+    ! rCode = pio_inq_att(strm%file(k)%fileid, vid, 'calendar')
+    ! call pio_seterrorhandling(strm%file(k)%fileid, old_handle)
+    ! if (rCode == pio_noerr) then
+    !    rCode = pio_get_att(strm%file(k)%fileid, vid, 'calendar', calendar)
+    ! else
+    !    calendar = trim(shr_cal_noleap)
+    ! endif
+    !DEBUG
+    calendar = trim(shr_cal_noleap)
+    !DEBUG
+
     n = len_trim(calendar)
     if (ichar(calendar(n:n)) == 0 ) calendar(n:n) = ' '
     call shr_string_leftalign_and_convert_tabs(calendar)
@@ -1209,13 +1213,16 @@ contains
 
     rCode = pio_inq_varid(strm%file(k)%fileid, 'time', vid)
     call pio_seterrorhandling(strm%file(k)%fileid, PIO_BCAST_ERROR, old_handle)
-    rCode = pio_inq_att(strm%file(k)%fileid, vid, 'calendar')
-    call pio_seterrorhandling(strm%file(k)%fileid, old_handle)
-    if(rcode == PIO_NOERR) then
-       rCode = pio_get_att(strm%file(k)%fileid, vid, 'calendar', lcal)
-    else
-       lcal = trim(shr_cal_noleap)
-    endif
+    ! rCode = pio_inq_att(strm%file(k)%fileid, vid, 'calendar')
+    ! call pio_seterrorhandling(strm%file(k)%fileid, old_handle)
+    ! if(rcode == PIO_NOERR) then
+    !    rCode = pio_get_att(strm%file(k)%fileid, vid, 'calendar', lcal)
+    ! else
+    !    lcal = trim(shr_cal_noleap)
+    ! endif
+    !DEBUG
+    lcal = shr_cal_noleap
+    !DEBUG
 
     n = len_trim(lcal)
     if (ichar(lcal(n:n)) == 0 ) lcal(n:n) = ' '
