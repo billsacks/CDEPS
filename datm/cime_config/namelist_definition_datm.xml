@@ -14,47 +14,47 @@
     <desc>List of streams used for the given DATM_MODE</desc>
     <values>
       <value datm_mode="CLM_QIAN$">
-        CLM_QIAN.Solar,CLM_QIAN.Precip,CLM_QIAN.TPQW
+	CLM_QIAN.Solar,CLM_QIAN.Precip,CLM_QIAN.TPQW
       </value>
       <value datm_mode="CLM_QIAN_WISO">
-        CLM_QIAN_WISO.Solar,CLM_QIAN_WISO.Precip,CLM_QIAN_WISO.TPQW
+	CLM_QIAN_WISO.Solar,CLM_QIAN_WISO.Precip,CLM_QIAN_WISO.TPQW
       </value>
       <value datm_mode="CLMCRUNCEPv7">
-        CLMCRUNCEPv7.Solar,CLMCRUNCEPv7.Precip,CLMCRUNCEPv7.TPQW
+	CLMCRUNCEPv7.Solar,CLMCRUNCEPv7.Precip,CLMCRUNCEPv7.TPQW
       </value>
       <value datm_mode="CLMGSWP3v1">
-        CLMGSWP3v1.Solar,CLMGSWP3v1.Precip,CLMGSWP3v1.TPQW
+	CLMGSWP3v1.Solar,CLMGSWP3v1.Precip,CLMGSWP3v1.TPQW
       </value>
       <value datm_mode="CLMNLDAS2">
-        CLMNLDAS2.Solar,CLMNLDAS2.Precip,CLMNLDAS2.TPQW
+	CLMNLDAS2.Solar,CLMNLDAS2.Precip,CLMNLDAS2.TPQW
       </value>
       <value datm_mode="1PT" model_grid="1x1_mexicocityMEX">
-        1PT.mexicocityMEX
+	1PT.mexicocityMEX
       </value>
       <value datm_mode="1PT" model_grid="1x1_vancouverCAN">
-        1PT.vancouverCAN
+	1PT.vancouverCAN
       </value>
       <value datm_mode="1PT" model_grid="1x1_urbanc_alpha">
-        1PT.urbanc_alpha
+	1PT.urbanc_alpha
       </value>
       <value datm_mode="CORE2_NYF" >
-        CORE2_NYF.GISS,CORE2_NYF.GXGXS,CORE2_NYF.NCEP
+	CORE2_NYF.GISS,CORE2_NYF.GXGXS,CORE2_NYF.NCEP
       </value>
       <value datm_mode="CORE2_IAF" >
-        CORE2_IAF.GCGCS.PREC,CORE2_IAF.GISS.LWDN,CORE2_IAF.GISS.SWDN,CORE2_IAF.GISS.SWUP,CORE2_IAF.NCEP.DN10,CORE2_IAF.NCEP.Q_10,CORE2_IAF.NCEP.SLP_,CORE2_IAF.NCEP.T_10,CORE2_IAF.NCEP.U_10,CORE2_IAF.NCEP.V_10,CORE2_IAF.CORE2.ArcFactor
+	CORE2_IAF.GCGCS.PREC,CORE2_IAF.GISS.LWDN,CORE2_IAF.GISS.SWDN,CORE2_IAF.GISS.SWUP,CORE2_IAF.NCEP.DN10,CORE2_IAF.NCEP.Q_10,CORE2_IAF.NCEP.SLP_,CORE2_IAF.NCEP.T_10,CORE2_IAF.NCEP.U_10,CORE2_IAF.NCEP.V_10,CORE2_IAF.CORE2.ArcFactor
       </value>
       <value datm_mode="CORE_IAF_JRA" >
-        CORE_IAF_JRA.PREC,CORE_IAF_JRA.LWDN,CORE_IAF_JRA.SWDN,CORE_IAF_JRA.Q_10,CORE_IAF_JRA.SLP_,CORE_IAF_JRA.T_10,CORE_IAF_JRA.U_10,CORE_IAF_JRA.V_10,CORE_IAF_JRA.CORE2.ArcFactor
+	CORE_IAF_JRA.PREC,CORE_IAF_JRA.LWDN,CORE_IAF_JRA.SWDN,CORE_IAF_JRA.Q_10,CORE_IAF_JRA.SLP_,CORE_IAF_JRA.T_10,CORE_IAF_JRA.U_10,CORE_IAF_JRA.V_10,CORE_IAF_JRA.CORE2.ArcFactor
       </value>
       <value datm_mode="CORE_IAF_JRA_1p4_2018" >CORE_IAF_JRA_1p4_2018.GCGCS.PREC,CORE_IAF_JRA_1p4_2018.GISS.LWDN,CORE_IAF_JRA_1p4_2018.GISS.SWDN,CORE_IAF_JRA_1p4_2018.NCEP.Q_10,CORE_IAF_JRA_1p4_2018.NCEP.SLP_,CORE_IAF_JRA_1p4_2018.NCEP.T_10,CORE_IAF_JRA_1p4_2018.NCEP.U_10,CORE_IAF_JRA_1p4_2018.NCEP.V_10</value>
       <value datm_mode="CORE2_IAF" model_grid="01col" >
-        CORE2_IAF.NCEP.DENS.SOFS,CORE2_IAF.NCEP.PSLV.SOFS,CORE2_IAF.PREC.SOFS.DAILY,CORE2_IAF.LWDN.SOFS.DAILY,CORE2_IAF.SWDN.SOFS.DAILY,CORE2_IAF.SWUP.SOFS.DAILY,CORE2_IAF.SHUM.SOFS.6HOUR,CORE2_IAF.TBOT.SOFS.6HOUR,CORE2_IAF.U.SOFS.6HOUR,CORE2_IAF.V.SOFS.6HOUR,CORE2_IAF.CORE2.ArcFactor
+	CORE2_IAF.NCEP.DENS.SOFS,CORE2_IAF.NCEP.PSLV.SOFS,CORE2_IAF.PREC.SOFS.DAILY,CORE2_IAF.LWDN.SOFS.DAILY,CORE2_IAF.SWDN.SOFS.DAILY,CORE2_IAF.SWUP.SOFS.DAILY,CORE2_IAF.SHUM.SOFS.6HOUR,CORE2_IAF.TBOT.SOFS.6HOUR,CORE2_IAF.U.SOFS.6HOUR,CORE2_IAF.V.SOFS.6HOUR,CORE2_IAF.CORE2.ArcFactor
       </value>
       <value datm_mode="ERA5">
-        ERA5_HOURLY
+	ERA5_HOURLY
       </value>
       <value datm_mode="CPLHIST">
-        CPLHISTForcing.Solar,CPLHISTForcing.nonSolarFlux,CPLHISTForcing.State3hr,CPLHISTForcing.State1hr
+	CPLHISTForcing.Solar,CPLHISTForcing.nonSolarFlux,CPLHISTForcing.State3hr,CPLHISTForcing.State1hr
       </value>
     </values>
   </entry>
@@ -100,25 +100,25 @@
     </desc>
     <values>
       <value datm_mode="CLM">
-        CLMNCEP
+	CLMNCEP
       </value>
       <value datm_mode="1PT">
-        CLMNCEP
+	CLMNCEP
       </value>
       <value datm_mode="CORE2_NYF">
-        CORE2_NYF
+	CORE2_NYF
       </value>
       <value datm_mode="CORE2_IAF">
-        CORE2_IAF
+	CORE2_IAF
       </value>
       <value datm_mode="CORE_IAF_JRA" >
-        CORE_IAF_JRA
+	CORE_IAF_JRA
       </value>
       <value datm_mode="ERA5">
-        ERA5
+	ERA5
       </value>
       <value datm_mode="CPLHIST">
-        CPLHIST
+	CPLHIST
       </value>
     </values>
   </entry>
