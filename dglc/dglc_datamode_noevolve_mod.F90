@@ -595,7 +595,7 @@ contains
 
   !===============================================================================
   subroutine dglc_datamode_noevolve_restart_read(model_meshes, restfilem, rpfile, &
-       logunit, my_task, main_task, mpicom, &
+       logunit, my_task, main_task, &
        pio_subsystem, io_type, nx_global, ny_global, rc)
 
     ! input/output arguments
@@ -605,7 +605,6 @@ contains
     integer                , intent(in)    :: logunit
     integer                , intent(in)    :: my_task
     integer                , intent(in)    :: main_task
-    integer                , intent(in)    :: mpicom
     type(iosystem_desc_t)  , pointer       :: pio_subsystem   ! pio info
     integer                , intent(in)    :: io_type         ! pio info
     integer                , intent(in)    :: nx_global(:)
