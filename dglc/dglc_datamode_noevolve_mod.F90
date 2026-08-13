@@ -630,13 +630,16 @@ contains
     !-------------------------------------------------------------------------------
 
     rc = ESMF_SUCCESS
+
+    call ESMF_VMGetCurrent(vm, rc=rc)
+    if (ChkErr(rc,__LINE__,u_FILE_u)) return
+
     ! Determine restart file
-
-
+    !
+    ! Note that we first determine existence only on the main task, then broadcast this to
+    ! other tasks.
+    exists = .false.
     if (trim(restfilem) == trim(nullstr)) then
-       exists = .false.
-       call ESMF_VMGetCurrent(vm, rc=rc)
-       if (ChkErr(rc,__LINE__,u_FILE_u)) return
        if (my_task == main_task) then
           write(logunit,'(a)') subname//' restart filename from rpointer '//trim(rpfile)
           open(newunit=nu, file=trim(rpfile), form='formatted')
@@ -655,9 +658,13 @@ contains
     endif
     tmp = 0
     if(exists) tmp=1
+    call ESMF_VMBroadCast(vm, tmp, 1, main_task, rc=rc)
+    if (ChkErr(rc,__LINE__,u_FILE_u)) return
     exists = (tmp(1) == 1)
-    if (.not. exists .and. my_task == main_task) then
-       write(logunit, '(a)') subname//' file not found, skipping '//trim(restfilem)
+    if (.not. exists) then
+       if (my_task == main_task) then
+          write(logunit, '(a)') subname//' file not found, skipping '//trim(restfilem)
+       end if
        return
     end if
 
